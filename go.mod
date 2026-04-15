@@ -1,4 +1,4 @@
-module gitlab.fortebank.com/domains/communication/petsvote.last-proto
+module github.com/megauspexx/petsvote.last-proto
 
 go 1.25.0
 
