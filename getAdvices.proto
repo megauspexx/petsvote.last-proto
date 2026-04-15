@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package communication.petsvote.advice;
+
+option go_package = "github.com/megauspexx/petsvote.last-proto/go;advicepb";
+
+import "commonAdvice.proto";
+
+message GetAdvicesResponse {
+  repeated Advices advices = 1;
+}
+
+message Advices {
+  string screen = 1;
+  LangBy content = 2;
+  LangBy deep_link = 3;
+}

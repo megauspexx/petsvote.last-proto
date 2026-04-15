@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package communication.petsvote.vote;
+
+option go_package = "github.com/megauspexx/petsvote.last-proto/go;advicepb";
+
+import "google/protobuf/empty.proto";
+import "addVote.proto";
+import "setReferral.proto";
+import "commonVote.proto";
+
+service VoteService {
+  // Добавление голоса
+  rpc AddVote(AddVoteRequest) returns (AddVoteResponse) {}
+
+  // Установка реферального кода
+  rpc SetReferral(SetReferralRequest) returns (google.protobuf.Empty) {}
+}

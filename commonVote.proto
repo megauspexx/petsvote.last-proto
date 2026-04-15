@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package communication.petsvote.vote;
+
+option go_package = "github.com/megauspexx/petsvote.last-proto/go;advicepb";
+
+// Ответ на добавление голоса
+message AddVoteResponse {
+  // Успешность операции
+  bool success = 1;
+  // Новый рейтинг питомца
+  int64 new_rating = 2;
+  // Оставшееся количество платных голосов
+  int32 remaining_paid_votes = 3;
+  // Отправлять ли silent push
+  bool silent_push = 4;
+}

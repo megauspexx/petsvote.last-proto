@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package communication.petsvote.advice;
+
+option go_package = "github.com/megauspexx/petsvote.last-proto/go;advicepb";
+
+import "validate/validate.proto";
+
+message LangBy {
+  string kk = 1 [(validate.rules).string.min_len = 1];
+  string ru = 2 [(validate.rules).string.min_len = 1];
+  string en = 3 [(validate.rules).string.min_len = 1];
+}

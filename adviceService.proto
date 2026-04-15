@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package communication.petsvote.advice;
+
+option go_package = "github.com/megauspexx/petsvote.last-proto/go;advicepb";
+
+import "google/protobuf/empty.proto";
+import "createAdvices.proto";
+import "getAdvices.proto";
+
+service AdviceService {
+  rpc CreateAdvices(CreateAdvicesRequest) returns (google.protobuf.Empty) {}
+  rpc GetAdvices(google.protobuf.Empty) returns (GetAdvicesResponse) {}
+}

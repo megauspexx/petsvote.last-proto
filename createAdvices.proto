@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package communication.petsvote.advice;
+
+option go_package = "github.com/megauspexx/petsvote.last-proto/go;advicepb";
+
+import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+import "commonAdvice.proto";
+
+message CreateAdvicesRequest {
+  string external_id = 1 [(validate.rules).string.min_len = 1];
+  repeated ClientAdvices advices = 2 [(validate.rules).repeated.min_items = 1];
+}
+
+message ClientAdvices {
+  LangBy title = 1;
+  LangBy content = 2 [(validate.rules).message.required = true];
+  Button button = 3;
+  google.protobuf.Timestamp expires_at = 4;
+  string screen = 5 [(validate.rules).string.min_len = 1];
+}
+
+message Button {
+  LangBy text = 1;
+  LangBy link = 2;
+}

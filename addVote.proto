@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package communication.petsvote.vote;
+
+option go_package = "github.com/megauspexx/petsvote.last-proto/go;advicepb";
+
+import "validate/validate.proto";
+
+// Запрос на добавление голоса
+message AddVoteRequest {
+  // ID пользователя, который голосует
+  int64 from_user_id = 1 [(validate.rules).int64.gt = 0];
+  // ID питомца, за которого голосуют
+  int64 to_pet_id = 2;
+  // Оценка (1-5)
+  int32 mark = 3 [(validate.rules).int32 = {gte: 1, lte: 5}];
+  // Флаг первого голосования пользователя
+  bool first_vote = 4;
+  // Флаг начисления очков без питомца
+  bool grant_point = 5;
+}
