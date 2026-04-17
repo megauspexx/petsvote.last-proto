@@ -22,37 +22,31 @@ fi
 
 echo "📦 Generating protos..."
 
-echo "📦 step 1"
-# 1. Генерация gRPC standalone файлов
+# создаём структуру заранее
 mkdir -p go/grpc
+
+echo "📦 step 1: generate micro (ONLY grpc)"
 protoc $INC \
-    --go-micro_out=go/grpc --go-micro_opt=components="grpc",standalone=true,paths=source_relative \
+    --go-micro_out=go/grpc \
+    --go-micro_opt=components="grpc",standalone=true,paths=source_relative \
     *.proto
 
-echo "📦 step 2"
-# 2. Генерация основных Go файлов
+echo "📦 step 2: generate pb models"
 protoc $INC \
-    --go_out=. --go_opt=paths=source_relative \
-    --validate_out="lang=go:." --validate_opt=paths=source_relative \
+    --go_out=go \
+    --go_opt=paths=source_relative \
     *.proto
 
-#echo "📦 step 3"
-## 3. Генерация micro файлов (без graphql компонента)
-#protoc $INC \
-#    --go-micro_out=. --go-micro_opt=paths=source_relative \
-#    *.proto
-
+echo "📦 step 3: generate validate"
+protoc $INC \
+    --validate_out="lang=go:go" \
+    --validate_opt=paths=source_relative \
+    *.proto
 
 echo "✅ Generation completed!"
 
-# Перемещаем сгенерированные файлы в правильную структуру если нужно
-if [ -f "go.mod" ]; then
-    echo "📁 Organizing files..."
-    # Создаем структуру как на скриншоте
-    mkdir -p go/grpc
-    # Перемещаем все .pb.go файлы в go/grpc если они в корне
-    mv *.pb.go go/grpc/ 2>/dev/null || true
-fi
+echo "📁 Files in go/:"
+ls -la go/ | head -20
 
-echo "📁 Generated files in go/grpc/:"
-ls -la go/grpc/ 2>/dev/null | head -20
+echo "📁 Files in go/grpc/:"
+ls -la go/grpc/ | head -20

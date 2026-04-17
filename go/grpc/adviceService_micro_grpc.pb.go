@@ -39,6 +39,24 @@ func (c *adviceServiceClient) GetAdvices(ctx context.Context, req *emptypb.Empty
 	return rsp, nil
 }
 
+func (c *adviceServiceClient) AddVote(ctx context.Context, req *_go.AddVoteRequest, opts ...client.CallOption) (*_go.AddVoteResponse, error) {
+	rsp := &_go.AddVoteResponse{}
+	err := c.c.Call(ctx, c.c.NewRequest(c.name, "AdviceService.AddVote", req), rsp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return rsp, nil
+}
+
+func (c *adviceServiceClient) SetReferral(ctx context.Context, req *_go.SetReferralRequest, opts ...client.CallOption) (*emptypb.Empty, error) {
+	rsp := &emptypb.Empty{}
+	err := c.c.Call(ctx, c.c.NewRequest(c.name, "AdviceService.SetReferral", req), rsp, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return rsp, nil
+}
+
 type adviceServiceServer struct {
 	_go.AdviceServiceServer
 }
@@ -51,10 +69,20 @@ func (h *adviceServiceServer) GetAdvices(ctx context.Context, req *emptypb.Empty
 	return h.AdviceServiceServer.GetAdvices(ctx, req, rsp)
 }
 
+func (h *adviceServiceServer) AddVote(ctx context.Context, req *_go.AddVoteRequest, rsp *_go.AddVoteResponse) error {
+	return h.AdviceServiceServer.AddVote(ctx, req, rsp)
+}
+
+func (h *adviceServiceServer) SetReferral(ctx context.Context, req *_go.SetReferralRequest, rsp *emptypb.Empty) error {
+	return h.AdviceServiceServer.SetReferral(ctx, req, rsp)
+}
+
 func RegisterAdviceServiceServer(s server.Server, sh _go.AdviceServiceServer, opts ...server.HandlerOption) error {
 	type adviceService interface {
 		CreateAdvices(ctx context.Context, req *_go.CreateAdvicesRequest, rsp *emptypb.Empty) error
 		GetAdvices(ctx context.Context, req *emptypb.Empty, rsp *_go.GetAdvicesResponse) error
+		AddVote(ctx context.Context, req *_go.AddVoteRequest, rsp *_go.AddVoteResponse) error
+		SetReferral(ctx context.Context, req *_go.SetReferralRequest, rsp *emptypb.Empty) error
 	}
 	type AdviceService struct {
 		adviceService

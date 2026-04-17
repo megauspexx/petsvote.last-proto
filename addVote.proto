@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package communication.petsvote.vote;
+package communication.petsvote.advice;
 
 option go_package = "github.com/megauspexx/petsvote.last-proto/go;advicepb";
 

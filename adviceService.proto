@@ -5,10 +5,23 @@ package communication.petsvote.advice;
 option go_package = "github.com/megauspexx/petsvote.last-proto/go;advicepb";
 
 import "google/protobuf/empty.proto";
+
+// advice
 import "createAdvices.proto";
 import "getAdvices.proto";
 
+// vote
+import "addVote.proto";
+import "setReferral.proto";
+import "commonVote.proto";
+
 service AdviceService {
+
+  // Advice
   rpc CreateAdvices(CreateAdvicesRequest) returns (google.protobuf.Empty) {}
   rpc GetAdvices(google.protobuf.Empty) returns (GetAdvicesResponse) {}
+
+  // Vote (добавили сюда)
+  rpc AddVote(AddVoteRequest) returns (AddVoteResponse) {}
+  rpc SetReferral(SetReferralRequest) returns (google.protobuf.Empty) {}
 }
